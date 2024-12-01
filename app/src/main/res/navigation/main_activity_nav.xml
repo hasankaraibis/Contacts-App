@@ -7,17 +7,28 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.hasankaraibis.kisileruygulamasi.MainScreenFragment"
+        android:name="com.hasankaraibis.kisileruygulamasi.fragment.MainScreenFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/navigateToContactDetail"
+            app:destination="@id/contactDetailFragment" />
+        <action
+            android:id="@+id/navigateToCreateContact"
+            app:destination="@id/createContactFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactDetailFragment"
-        android:name="com.hasankaraibis.kisileruygulamasi.ContactDetailFragment"
+        android:name="com.hasankaraibis.kisileruygulamasi.fragment.ContactDetailFragment"
         android:label="fragment_contact_detail"
-        tools:layout="@layout/fragment_contact_detail" />
+        tools:layout="@layout/fragment_contact_detail" >
+        <argument
+            android:name="contact"
+            app:argType="com.hasankaraibis.kisileruygulamasi.model.Contact" />
+    </fragment>
     <fragment
         android:id="@+id/createContactFragment"
-        android:name="com.hasankaraibis.kisileruygulamasi.CreateContactFragment"
+        android:name="com.hasankaraibis.kisileruygulamasi.fragment.CreateContactFragment"
         android:label="fragment_create_contact"
         tools:layout="@layout/fragment_create_contact" />
 </navigation>

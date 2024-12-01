@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContactDetailFragment" >
+    tools:context=".fragment.ContactDetailFragment" >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarContactDetail"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarContactDetail">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/personName"
+            android:id="@+id/edtPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Person's Name" />
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tilName">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/personNumber"
+            android:id="@+id/edtPersonNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Person's Number" />
