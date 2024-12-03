@@ -2,11 +2,13 @@ package com.hasankaraibis.kisileruygulamasi.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentContactDetailBinding
 
 class ContactDetailFragment : Fragment() {
@@ -15,24 +17,23 @@ class ContactDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        design = FragmentContactDetailBinding.inflate(inflater, container, false)
+        design =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_contact_detail, container, false)
+        design.contactDetailFragment = this
+        design.contactDetailToolbarTitle = getString(R.string.contact_detail)
 
         val bundle: ContactDetailFragmentArgs by navArgs()
         val incomingContact = bundle.contact
 
-        design.edtPersonName.setText(incomingContact.contactName)
-        design.edtPersonNumber.setText(incomingContact.contactNumber)
-
-        design.btnUpdate.setOnClickListener {
-            val newName = design.edtPersonName.text.toString()
-            val newNumber = design.edtPersonNumber.text.toString()
-            updateContact(incomingContact.contactId, newName, newNumber)
-        }
+        design.contact = incomingContact
 
         return design.root
     }
 
-    private fun updateContact(contactId: Int, newName: String, newNumber: String) {
-    Log.e("Contact Updated", "Contact ID: $contactId, New Name: $newName, New Number: $newNumber")
+    fun btnUpdateClicked(contactId: Int, newName: String, newNumber: String) {
+        Log.e(
+            "Contact Updated",
+            "Contact ID: $contactId, New Name: $newName, New Number: $newNumber"
+        )
     }
 }

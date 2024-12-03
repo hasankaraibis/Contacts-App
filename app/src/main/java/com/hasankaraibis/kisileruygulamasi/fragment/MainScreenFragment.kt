@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.hasankaraibis.kisileruygulamasi.R
+import com.hasankaraibis.kisileruygulamasi.adapter.ContactsAdapter
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentMainBinding
 import com.hasankaraibis.kisileruygulamasi.model.Contact
 
@@ -24,20 +26,23 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        design = FragmentMainBinding.inflate(inflater, container, false)
-
-        design.toolbarMainScreen.title = "Contacts"
+        design = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        design.mainScreenFragment = this
+        design.mainScreenToolbarTitle = "Contacts"
         (activity as AppCompatActivity).setSupportActionBar(design.toolbarMainScreen)
         initMenu()
 
-        design.fabAdd.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.navigateToCreateContact)
-        }
-        design.btnDetail.setOnClickListener {
-            val contact = Contact(1, "hasan", "123")
-            val action = MainScreenFragmentDirections.navigateToContactDetail(contact = contact)
-            Navigation.findNavController(it).navigate(action)
-        }
+
+        val contactList = ArrayList<Contact>()
+        val contact1 = Contact(1, "Ahmet", "123456789")
+        val contact2 = Contact(2, "Mehmet", "987654321")
+        val contact3 = Contact(3, "Ayşe", "555555555")
+        contactList.add(contact1)
+        contactList.add(contact2)
+        contactList.add(contact3)
+
+        val adapter = ContactsAdapter(requireContext(), contactList)
+        design.contactsAdapter = adapter
 
         return design.root
     }
@@ -60,10 +65,12 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
                         Log.e(TAG, "Search")
                         true
                     }
+
                     R.id.menuItemSettings -> {
                         Log.e(TAG, "Settings")
                         true
                     }
+
                     else -> false
                 }
             }
@@ -79,7 +86,12 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
         search(newText)
         return true
     }
+
     private fun search(query: String) {
         Log.e(TAG, "Search: $query")
+    }
+
+    fun fabClick(view: View) {
+        Navigation.findNavController(view).navigate(R.id.navigateToCreateContact)
     }
 }

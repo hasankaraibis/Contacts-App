@@ -15,18 +15,14 @@ class CreateContactFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         design = FragmentCreateContactBinding.inflate(inflater, container, false)
-        design.toolbarCreateContact.title = "New Contact"
+        design.createContactFragment = this
+        design.createContactToolbarTitle = "New Contact"
 
-        design.btnSave.setOnClickListener {
-            val contactName = design.edtPersonName.text.toString()
-            val contactNumber = design.edtPersonNumber.text.toString()
-
-            createContact(contactName, contactNumber)
-        }
 
         return design.root
     }
-    private fun createContact(contactName: String, contactNumber: String) {
+
+    fun btnSaveClick(contactName: String, contactNumber: String) {
         Log.e("Create Contact", "$contactName - $contactNumber")
     }
 }
