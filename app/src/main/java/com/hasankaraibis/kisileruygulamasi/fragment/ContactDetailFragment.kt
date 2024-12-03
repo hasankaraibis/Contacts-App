@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentContactDetailBinding
+import com.hasankaraibis.kisileruygulamasi.viewmodel.ContactDetailViewModel
 
 class ContactDetailFragment : Fragment() {
     private lateinit var design: FragmentContactDetailBinding
+    private lateinit var viewModel: ContactDetailViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,10 +33,13 @@ class ContactDetailFragment : Fragment() {
         return design.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: ContactDetailViewModel by viewModels()
+        viewModel = tempViewModel
+    }
+
     fun btnUpdateClicked(contactId: Int, newName: String, newNumber: String) {
-        Log.e(
-            "Contact Updated",
-            "Contact ID: $contactId, New Name: $newName, New Number: $newNumber"
-        )
+        viewModel.update(contactId, newName, newNumber)
     }
 }
