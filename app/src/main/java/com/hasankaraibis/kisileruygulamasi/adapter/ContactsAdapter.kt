@@ -12,8 +12,9 @@ import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.databinding.ContactCardBinding
 import com.hasankaraibis.kisileruygulamasi.fragment.MainScreenFragmentDirections
 import com.hasankaraibis.kisileruygulamasi.model.Contact
+import com.hasankaraibis.kisileruygulamasi.viewmodel.MainScreenViewModel
 
-class ContactsAdapter(var mContext: Context, private var contactList: List<Contact>) :
+class ContactsAdapter(var mContext: Context, private var contactList: List<Contact>, var viewModel: MainScreenViewModel) :
     RecyclerView.Adapter<ContactsAdapter.CardDesignHolder>() {
     val TAG = "ContactsAdapter"
 
@@ -38,14 +39,13 @@ class ContactsAdapter(var mContext: Context, private var contactList: List<Conta
             Navigation.findNavController(it).navigate(action)
         }
 
-        holder.design.ivDeleteIcon.setOnClickListener {
+        holder.design.ivDeleteIcon.setOnClickListener { it ->
             Snackbar.make(
                 it, "Do you really want to delete ${contact.contactName}",
                 Snackbar.LENGTH_LONG
             )
                 .setAction("YES") {
-//                    Snackbar.make(it, "${contact.contactName} deleted", Snackbar.LENGTH_SHORT)
-//                        .show()
+                    viewModel.delete(contact.contactId)
                     Log.e(TAG, "${contact.contactName} ${contact.contactId} deleted")
                 }.show()
         }

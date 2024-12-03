@@ -14,14 +14,17 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.adapter.ContactsAdapter
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentMainBinding
 import com.hasankaraibis.kisileruygulamasi.model.Contact
+import com.hasankaraibis.kisileruygulamasi.viewmodel.MainScreenViewModel
 
 class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var design: FragmentMainBinding
+    private lateinit var viewModel: MainScreenViewModel
     private val TAG = "MainScreenFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,11 +44,18 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
         contactList.add(contact2)
         contactList.add(contact3)
 
-        val adapter = ContactsAdapter(requireContext(), contactList)
+        val adapter = ContactsAdapter(requireContext(), contactList, viewModel)
         design.contactsAdapter = adapter
 
         return design.root
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: MainScreenViewModel by viewModels()
+        viewModel = tempViewModel
+    }
+
 
     private fun initMenu() {
         val menuHost: MenuHost = requireActivity()
@@ -78,17 +88,13 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        search(query)
+        viewModel.search(query)
         return true
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        search(newText)
+        viewModel.search(newText)
         return true
-    }
-
-    private fun search(query: String) {
-        Log.e(TAG, "Search: $query")
     }
 
     fun fabClick(view: View) {
