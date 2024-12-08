@@ -39,7 +39,7 @@ class ContactDetailFragment : Fragment() {
         viewModel = tempViewModel
     }
 
-    fun btnUpdateClicked(contactId: Int, newName: String, newNumber: String) {
+    fun btnUpdateClicked(contactId: String, newName: String, newNumber: String) {
         viewModel.update(contactId, newName, newNumber)
     }
 }

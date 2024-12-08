@@ -45,7 +45,7 @@ class ContactsAdapter(var mContext: Context, private var contactList: List<Conta
                 Snackbar.LENGTH_LONG
             )
                 .setAction("YES") {
-                    viewModel.delete(contact.contactId)
+                    viewModel.delete(contact.contactId!!)
                     Log.e(TAG, "${contact.contactName} ${contact.contactId} deleted")
                 }.show()
         }

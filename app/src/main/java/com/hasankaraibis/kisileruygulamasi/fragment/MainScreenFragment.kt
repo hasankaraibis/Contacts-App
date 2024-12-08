@@ -36,16 +36,10 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
         initMenu()
 
 
-        val contactList = ArrayList<Contact>()
-        val contact1 = Contact(1, "Ahmet", "123456789")
-        val contact2 = Contact(2, "Mehmet", "987654321")
-        val contact3 = Contact(3, "Ayşe", "555555555")
-        contactList.add(contact1)
-        contactList.add(contact2)
-        contactList.add(contact3)
-
-        val adapter = ContactsAdapter(requireContext(), contactList, viewModel)
-        design.contactsAdapter = adapter
+        viewModel.contactList.observe(viewLifecycleOwner) { contactList ->
+            val adapter = ContactsAdapter(requireContext(), contactList, viewModel)
+            design.contactsAdapter = adapter
+        }
 
         return design.root
     }

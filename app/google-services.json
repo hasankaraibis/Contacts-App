@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "227921240932",
+    "firebase_url": "https://contactsapp-6af40-default-rtdb.firebaseio.com",
+    "project_id": "contactsapp-6af40",
+    "storage_bucket": "contactsapp-6af40.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227921240932:android:1f0b01c34ab5c8a41b5071",
+        "android_client_info": {
+          "package_name": "com.hasankaraibis.kisileruygulamasi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN17dG-NBAy6kjFDwaukIzC2LjqrgMYyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
