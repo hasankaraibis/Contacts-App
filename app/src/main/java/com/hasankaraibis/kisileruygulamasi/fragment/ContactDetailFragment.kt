@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentContactDetailBinding
+import com.hasankaraibis.kisileruygulamasi.viewmodel.ContactDetailVMF
 import com.hasankaraibis.kisileruygulamasi.viewmodel.ContactDetailViewModel
 
 class ContactDetailFragment : Fragment() {
@@ -35,7 +36,9 @@ class ContactDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tempViewModel: ContactDetailViewModel by viewModels()
+        val tempViewModel: ContactDetailViewModel by viewModels() {
+            ContactDetailVMF(requireActivity().application)
+        }
         viewModel = tempViewModel
     }
 

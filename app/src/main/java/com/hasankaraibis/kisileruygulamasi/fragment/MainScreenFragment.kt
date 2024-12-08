@@ -20,6 +20,8 @@ import com.hasankaraibis.kisileruygulamasi.R
 import com.hasankaraibis.kisileruygulamasi.adapter.ContactsAdapter
 import com.hasankaraibis.kisileruygulamasi.databinding.FragmentMainBinding
 import com.hasankaraibis.kisileruygulamasi.model.Contact
+import com.hasankaraibis.kisileruygulamasi.repository.ContactsDaoRepository
+import com.hasankaraibis.kisileruygulamasi.viewmodel.MainScreenVMF
 import com.hasankaraibis.kisileruygulamasi.viewmodel.MainScreenViewModel
 
 class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -35,24 +37,19 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
         (activity as AppCompatActivity).setSupportActionBar(design.toolbarMainScreen)
         initMenu()
 
-
-        val contactList = ArrayList<Contact>()
-        val contact1 = Contact(1, "Ahmet", "123456789")
-        val contact2 = Contact(2, "Mehmet", "987654321")
-        val contact3 = Contact(3, "Ayşe", "555555555")
-        contactList.add(contact1)
-        contactList.add(contact2)
-        contactList.add(contact3)
-
-        val adapter = ContactsAdapter(requireContext(), contactList, viewModel)
-        design.contactsAdapter = adapter
+        viewModel.contactList.observe(viewLifecycleOwner) { contactList ->
+            val adapter = ContactsAdapter(requireContext(), contactList, viewModel)
+            design.contactsAdapter = adapter
+        }
 
         return design.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tempViewModel: MainScreenViewModel by viewModels()
+        val tempViewModel: MainScreenViewModel by viewModels(){
+            MainScreenVMF(requireActivity().application)
+        }
         viewModel = tempViewModel
     }
 
@@ -99,5 +96,10 @@ class MainScreenFragment : Fragment(), SearchView.OnQueryTextListener {
 
     fun fabClick(view: View) {
         Navigation.findNavController(view).navigate(R.id.navigateToCreateContact)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadContact()
     }
 }
